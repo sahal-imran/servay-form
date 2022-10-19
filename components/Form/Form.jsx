@@ -27,7 +27,7 @@ function Form() {
   // Validations States
   const [RequiredAll, Set_RequiredAll] = useState(false);
   const [Error, Set_Error] = useState(false);
-  const [ErrorMessage, Set_ErrorMessage] = useState(false);
+  const [ErrorMessage, Set_ErrorMessage] = useState("");
 
   const clr = RequiredAll ? "red" : "transparent";
 
@@ -139,6 +139,48 @@ function Form() {
       ChangeFunction: set_Engineering_Technicians,
     },
   ];
+
+  const Back = () => {
+    Set_Client_Detail(true);
+    Set_Proposal_Strcuture(false);
+  };
+
+  const strcuture = () => {
+    const Data = {};
+    if (Ambitious_Design) Data.Ambitious_Design = "Ambitious_Design";
+    if (!Ambitious_Design) delete Data.Ambitious_Design;
+    if (Our_story) Data.Our_story = "Our_story";
+    if (!Our_story) delete Data.Our_story;
+    if (Project_Overview) Data.Project_Overview = "Project_Overview";
+    if (!Project_Overview) delete Data.Project_Overview;
+    if (Concepts_Strategy) Data.Concepts_Strategy = "Concepts_Strategy";
+    if (!Concepts_Strategy) delete Data.Concepts_Strategy;
+    if (Ascent_Process) Data.Ascent_Process = "Ascent_Process";
+    if (!Ascent_Process) delete Data.Ascent_Process;
+    if (Project_Schedule) Data.Project_Schedule = "Project_Schedule";
+    if (!Project_Schedule) delete Data.Project_Schedule;
+    if (Mission_control_Team) Data.Mission_control_Team = "Mission_control_Team";
+    if (!Mission_control_Team) delete Data.Mission_control_Team;
+    if (Creative_facility) Data.Creative_facility = "Creative_facility";
+    if (!Creative_facility) delete Data.Creative_facility;
+    if (Engineering_Technicians) Data.Engineering_Technicians = "Engineering_Technicians";
+    if (!Engineering_Technicians) delete Data.Engineering_Technicians;
+
+    return Data;
+  };
+
+  const Create = () => {
+    const Options = strcuture();
+
+    console.log({
+      Name,
+      Contact,
+      Email,
+      Design,
+      Development,
+      Options,
+    });
+  };
 
   return (
     <Box
@@ -652,7 +694,7 @@ function Form() {
             boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px",
             borderRadius: "5px",
             background: "white",
-            overflow:'hidden'
+            overflow: "hidden",
           }}
         >
           <Typography
@@ -698,7 +740,7 @@ function Form() {
                         justifyContent: "space-between",
                         alignItems: "center",
                         mt: 1.3,
-                        border: `1px solid ${clr}`,
+                        border: `1px solid transparent`,
                         px: 1.5,
                       }
                     : {
@@ -711,7 +753,7 @@ function Form() {
                         justifyContent: "space-between",
                         alignItems: "center",
                         mt: 1.3,
-                        border: `1px solid ${clr}`,
+                        border: `1px solid transparent`,
                         px: 1.5,
                       }
                 }
@@ -731,15 +773,71 @@ function Form() {
                   checked={item.Current_State}
                   onChange={(e) => item.ChangeFunction(e.target.checked)}
                   icon={<CircleIcon sx={{ color: "#e0e0e1" }} />}
-                  checkedIcon={<CheckCircleIcon sx={{ color: "#374ff9" }} />}
+                  checkedIcon={<CheckCircleIcon sx={{ color: "#1976D2" }} />}
                   sx={{ mr: -1 }}
                 />
               </Box>
             );
           })}
           <Box
-            sx={{ height: "1px", width: "100vw", background: "#f0f0f0",my:2.5 }}
+            sx={{
+              height: "1px",
+              width: "100vw",
+              background: "#f0f0f0",
+              my: 2.5,
+            }}
           ></Box>
+          {/* Button */}
+          <Box
+            sx={{
+              width: "100%",
+              height: "36px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Button
+              onClick={Back}
+              variant="contained"
+              sx={{
+                width: "25%",
+                height: "100%",
+                boxShadow: "none",
+                borderRadius: "4px",
+                backgroundColor: "#999999",
+                fontFamily: "Roboto",
+                fontSize: "16px",
+                fontWeight: 400,
+                color: "white",
+                textTransform: "capitalize",
+                "&:hover": { backgroundColor: "#999999", boxShadow: "none" },
+                mr: 0.5,
+              }}
+            >
+              Back
+            </Button>
+            <Button
+              onClick={() => Create()}
+              variant="contained"
+              sx={{
+                width: "75%",
+                height: "100%",
+                boxShadow: "none",
+                borderRadius: "4px",
+                backgroundColor: "#1976d2",
+                fontFamily: "Roboto",
+                fontSize: "16px",
+                fontWeight: 400,
+                color: "white",
+                textTransform: "capitalize",
+                "&:hover": { backgroundColor: "#1976d2", boxShadow: "none" },
+                ml: 0.5,
+              }}
+            >
+              Create
+            </Button>
+          </Box>
         </Box>
       )}
     </Box>
